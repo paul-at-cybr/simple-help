@@ -45,3 +45,8 @@ func (h *SimpleHelp) makeHelpFormatStr() string {
 func (h *SimpleHelp) flagIndentation(flagName string) string {
 	return fmt.Sprintf(h.helpFormatString, flagName)
 }
+
+// Hint: Prints a small hint about the --help parameter
+func Hint() {
+	fmt.Println("Use --help for more information")
+}
