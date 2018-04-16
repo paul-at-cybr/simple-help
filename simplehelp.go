@@ -30,7 +30,7 @@ func (h *SimpleHelp) Help() {
 	grebo.Print("\nFlags:\n")
 	// print usage for all flags
 	flag.CommandLine.VisitAll(func(fl *flag.Flag) {
-		fmt.Printf("  --%s%s\n", h.flagIndentation(fl.Name), fl.Usage)
+		fmt.Printf("  --%s%s (Default: %s)\n", h.flagIndentation(fl.Name), fl.Usage, fl.DefValue)
 	})
 
 	fmt.Print("\n")
