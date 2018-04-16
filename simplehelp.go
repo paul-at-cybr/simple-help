@@ -7,13 +7,18 @@ import (
 	"github.com/fatih/color"
 )
 
+// SimpleHelp - object containing configuration options for the help function
 type SimpleHelp struct {
-	ProgramTitle       string
-	ProgramDescription string
-	Indentation        int
+	ProgramTitle       string // Title of your CLI program goes here
+	ProgramDescription string // Program description
+	Indentation        int    // How many characters to indent the flag descriptions
 	helpFormatString   string
 }
 
+// Help - Gets available flags, combines with the config options,
+// and outputs a help page to stdout.
+// Usage: flag.CommandLine.Usage = help.Help
+// Can also be called directly: help.Help()
 func (h *SimpleHelp) Help() {
 
 	h.helpFormatString = h.makeHelpFormatStr()
@@ -31,10 +36,12 @@ func (h *SimpleHelp) Help() {
 	fmt.Print("\n")
 }
 
+// creates a formatting string that can be used for space-padding via Sprintf
 func (h *SimpleHelp) makeHelpFormatStr() string {
 	return fmt.Sprintf("%%-%ds", h.Indentation)
 }
 
+// uses the formatting string to apply space padding
 func (h *SimpleHelp) flagIndentation(flagName string) string {
 	return fmt.Sprintf(h.helpFormatString, flagName)
 }
