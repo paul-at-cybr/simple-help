@@ -30,12 +30,10 @@ func (h *SimpleHelp) Help() {
 	h.helpFormatString = h.makeHelpFormatStr()
 
 	grebo := color.New(color.FgGreen, color.Bold)
-	grebo.Printf("\n%s\n", h.ProgramTitle)
-	fmt.Println("  " + h.ProgramDescription)
+	printSection(h.ProgramTitle, h.ProgramDescription, grebo)
 
 	for _, section := range h.helpSections {
-		grebo.Printf("\n%s\n", section.name)
-		fmt.Println("  " + section.description)
+		printSection(section.name, section.description, grebo)
 	}
 
 	grebo.Print("\nFlags:\n")
@@ -50,6 +48,12 @@ func (h *SimpleHelp) Help() {
 // AddSection - Adds a help section to the help output.
 func (h *SimpleHelp) AddSection(name string, description string) {
 	h.helpSections = append(h.helpSections, helpSection{name: name, description: description})
+}
+
+// Prints a section (colored title, plain content)
+func printSection(title string, content string, c *color.Color) {
+	c.Printf("\n%s\n", title)
+	fmt.Println("  " + content)
 }
 
 // creates a formatting string that can be used for space-padding via Sprintf
