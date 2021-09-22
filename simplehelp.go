@@ -29,7 +29,7 @@ func (h *SimpleHelp) Help() {
 
 	h.helpFormatString = h.makeHelpFormatStr()
 
-	grebo := color.New(color.FgGreen, color.Bold)
+	grebo := color.New(color.FgBlue, color.Bold)
 	printSection(h.ProgramTitle, h.ProgramDescription, grebo)
 
 	for _, section := range h.helpSections {
@@ -39,7 +39,11 @@ func (h *SimpleHelp) Help() {
 	grebo.Print("\nFlags:\n")
 	// print usage for all flags
 	flag.CommandLine.VisitAll(func(fl *flag.Flag) {
-		fmt.Printf("  --%s%s (Default: %s)\n", h.flagIndentation(fl.Name), fl.Usage, fl.DefValue)
+		var defaultString string
+		if fl.DefValue != "" {
+			defaultString = fmt.Sprintf("(Default: %s)", fl.DefValue)
+		}
+		fmt.Printf("  --%s%s %s\n", h.flagIndentation(fl.Name), fl.Usage, defaultString)
 	})
 
 	fmt.Print("\n")
